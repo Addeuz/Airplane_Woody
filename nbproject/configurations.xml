@@ -8,6 +8,7 @@
       <itemPath>Airport.h</itemPath>
       <itemPath>Flights.h</itemPath>
       <itemPath>Passanger.h</itemPath>
+      <itemPath>World.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -16,8 +17,8 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
-      <itemPath>airport.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
+      <itemPath>proj_source.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
                    displayName="Test Files"
@@ -49,9 +50,11 @@
       </item>
       <item path="Passanger.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="airport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="proj_source.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -82,9 +85,11 @@
       </item>
       <item path="Passanger.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="airport.cpp" ex="false" tool="1" flavor2="0">
+      <item path="World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="proj_source.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
   </confs>

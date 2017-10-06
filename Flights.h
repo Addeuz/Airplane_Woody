@@ -14,9 +14,26 @@
 #ifndef FLIGHTS_H
 #define FLIGHTS_H
 
-class Flights {
+#include <string>
+#include <vector>
+#include "Passanger.h"
+
+class Flight{
+private:
+    int id;
+protected:
+    std::string plan_id; //Kanske använda sig av hela planet istället
+    std::vector<Passenger> passenger;
+    std::string dest;
+    std::string departure;
+    int time;
+public:
+    calculate_time();
+    Flight(std::string plan_id, Passenger P, std::string dest, std::string departure): plan_id(plan_id), dest(dest), departure(departure){passenger.push_back (P);}
+
     
 };
+
 
 #endif /* FLIGHTS_H */
 

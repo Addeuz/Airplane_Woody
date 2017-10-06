@@ -13,9 +13,19 @@
 
 #ifndef PASSANGER_H
 #define PASSANGER_H
+#include <string>
 
-class Passanger {
-    
+class Passenger{
+private:
+    int ID;
+protected:
+    std::string dest;
+    std:: string location;
+    std:: string req_time;
+public:
+Passenger(std::string dest, std::string location, std::string req_time): dest(dest), location(location), req_time(req_time) {}      
+
+
 };
 
 #endif /* PASSANGER_H */

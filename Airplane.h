@@ -13,10 +13,30 @@
 
 #ifndef AIRPLANE_H
 #define AIRPLANE_H
+#include <string>
 
-class Airplane {
+class Airplane{
+private:
+    int ID;
     
+protected:
+    std::string model;
+    int avail_seats;
+    int max_seats;
+    int max_range;
+    int max_speed;
+    int max_height;
+public:
+    set_ID();
+    set_model();
+    set_avail_seats();
+    Airplane(std::string Aircraft);
+    std::string get_model(){return model;}
+    
+
+
 };
+
 
 #endif /* AIRPLANE_H */
 
