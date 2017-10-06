@@ -23,8 +23,8 @@ protected:
     std:: string location;
     std:: string req_time;
 public:
-Passenger(std::string dest, std::string location, std::string req_time): dest(dest), location(location), req_time(req_time) {}      
-
+    Passenger(std::string dest, std::string location, std::string req_time, int ID): dest(dest), location(location), req_time(req_time), ID(ID) {}      
+    
 
 };
 

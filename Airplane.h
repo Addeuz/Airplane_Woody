@@ -17,7 +17,7 @@
 
 class Airplane{
 private:
-    int ID;
+    std::string ID;
     
 protected:
     std::string model;
@@ -27,14 +27,12 @@ protected:
     int max_speed;
     int max_height;
 public:
-    void set_ID();
+    void set_ID(std::string id){ID = id;}
     void set_model();
-    void set_avail_seats();
+    void set_avail_seats(int x){avail_seats = x;}
     Airplane(std::string Aircraft);
     std::string get_model(){return model;}
     
-
-
 };
 
 

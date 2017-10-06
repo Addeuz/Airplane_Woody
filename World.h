@@ -14,18 +14,20 @@
 #ifndef WORLD_H
 #define WORLD_H
 #include "Airplane.h"
-#include "Passenger.h"
+#include "Passanger.h"
+#include "Airport.h"
 #include <vector>
 #include <string>
 class World{
 protected:
     std::vector<Airplane> airplane;
     std::vector<Passenger> passeger;
-    //std::vector<Airport> airport;
+    std::vector<Airport> airport;
 public:
-    create_airplane(std::string file_name);
-    create_airport(std::string file_name);
-    create_passenger(std::string file_name);
+    void create_airplane(std::string file_name);
+    void create_airport(std::string file_name);
+    void create_passenger(std::string file_name);
+    
     
 };
 
