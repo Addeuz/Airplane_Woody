@@ -27,9 +27,9 @@ protected:
     int max_speed;
     int max_height;
 public:
-    set_ID();
-    set_model();
-    set_avail_seats();
+    void set_ID();
+    void set_model();
+    void set_avail_seats();
     Airplane(std::string Aircraft);
     std::string get_model(){return model;}
     
