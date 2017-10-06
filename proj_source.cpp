@@ -13,15 +13,12 @@
 
 using namespace std;
 
-Airport::Airport(int in_ID, float alti, long longi, long lati, vector<Airplane> airp, vector<Flight> arr, vector<Flight> dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
+Airport::Airport(int in_ID, float alti, long longi, long lati, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
 //Airport::Airport(int in_ID, int alti, int longi, int lati, int airp, int arr, int dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
     ID = in_ID;
     altitude = alti; 
     longitude = longi;
     latitude = lati;
-    airplane = airp;
-    arrival = arr;
-    departures = dep;
     country = coun;
     timezone = timez;
     type = typ;
