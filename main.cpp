@@ -17,6 +17,8 @@
 #include <string>
 #include <vector>
 #include "Airport.h"
+#include "Airplane.h"
+#include "Passanger.h"
 
 using namespace std;
 
