@@ -29,8 +29,8 @@ protected:
 //    int arrival;
 //    int departures;
     std::vector<Airplane> airplane;
-    std::vector<Flights> arrival;
-    std::vector<Flights> departures;
+    std::vector<Flight> arrival;
+    std::vector<Flight> departures;
     std::string country;
     std::string timezone;
     std::string type;
@@ -41,11 +41,11 @@ protected:
     std::string name;
 public:
     void set_ID();
-    Airport(int ID, float alti, float longi, float lati, std::vector<Airplane> airp, std::vector<Flights> arr, std::vector<Flights> dep, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name);
+    Airport(int ID, float alti, float longi, float lati, std::vector<Airplane> airp, std::vector<Flight> arr, std::vector<Flight> dep, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name);
     //Airport(int ID, int alti, int longi, int lati, int airp, int arr, int dep, std::string coun, std::string timez, std::string type, std::string ICAO, std::string IATA, std::string city, std::string source, std::string name);
-    long get_longitud(class Airport);
-    long get_latitud(class Airport);
-    Flights create_flight(std::string plan_id, std::vector<Passanger> passanger, std::string destination, std::string departure, int time);
+    float get_longitud(class Airport);
+    float get_latitud( class Airport);
+    Flight create_flight(std::string plan_id, std::vector<Passenger> passenger, std::string destination, std::string departure, int time);
     bool book_plane();
     bool add_plane();
     void print_airport();

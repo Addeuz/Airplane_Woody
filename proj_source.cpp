@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Airport::Airport(int in_ID, float alti, float longi, float lati, vector<Airplane> airp, vector<Flights> arr, vector<Flights> dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
+Airport::Airport(int in_ID, float alti, float longi, float lati, vector<Airplane> airp, vector<Flight> arr, vector<Flight> dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
 //Airport::Airport(int in_ID, int alti, int longi, int lati, int airp, int arr, int dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
     ID = in_ID;
     altitude = alti; 
@@ -32,11 +32,14 @@ Airport::Airport(int in_ID, float alti, float longi, float lati, vector<Airplane
     name = in_name;
 }
 
-long Airport::get_longitud(class Airport) {
-    return (Airport.longitude);
+float Airport::get_longitud(class A) {
+    float a=A.longitude;
+    return a;
 }
-long Airport::get_latitud(class Airport) {
-    return (Airport.latitude);
+
+float Airport::get_latitud(class A) {
+    float b=A->latitude;
+    return b;
 }
 Airplane::Airplane(string Aircraft){
     
