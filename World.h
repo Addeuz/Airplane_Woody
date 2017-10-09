@@ -18,17 +18,18 @@
 #include "Airport.h"
 #include <vector>
 #include <string>
-class World{
+
+class World {
 protected:
     std::vector<Airplane> airplane;
-    std::vector<Passenger> passeger;
+    std::vector<Passenger> passenger;
     std::vector<Airport> airport;
 public:
     void create_airplane(std::string file_name);
     void create_airport(std::string file_name);
     void create_passenger(std::string file_name);
-    
-    
+
+
 };
 
 

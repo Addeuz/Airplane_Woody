@@ -15,16 +15,18 @@
 #define PASSANGER_H
 #include <string>
 
-class Passenger{
+class Passenger {
 private:
     int ID;
 protected:
     std::string dest;
-    std:: string location;
-    std:: string req_time;
+    std::string location;
+    std::string req_time;
 public:
-    Passenger(std::string dest, std::string location, std::string req_time, int ID): dest(dest), location(location), req_time(req_time), ID(ID) {}      
-    
+
+    Passenger(std::string dest, std::string location, std::string req_time, int ID) : dest(dest), location(location), req_time(req_time), ID(ID) {
+    }
+
 
 };
 

@@ -15,10 +15,10 @@
 #define AIRPLANE_H
 #include <string>
 
-class Airplane{
+class Airplane {
 private:
     std::string ID;
-    
+
 protected:
     std::string model;
     int avail_seats;
@@ -27,12 +27,21 @@ protected:
     int max_speed;
     int max_height;
 public:
-    void set_ID(std::string id){ID = id;}
+
+    void set_ID(std::string id) {
+        ID = id;
+    }
     void set_model();
-    void set_avail_seats(int x){avail_seats = x;}
+
+    void set_avail_seats(int x) {
+        avail_seats = x;
+    }
     Airplane(std::string Aircraft);
-    std::string get_model(){return model;}
-    
+
+    std::string get_model() {
+        return model;
+    }
+
 };
 
 

@@ -19,6 +19,8 @@
 #include "Airport.h"
 #include "Airplane.h"
 #include "Passanger.h"
+#include "World.h"
+#include "Flights.h"
 
 using namespace std;
 
@@ -27,11 +29,11 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
-    //int ID, int alti, int longi, int lati, int airp, int arr, int dep, std::string coun, std::string timez, std::string type, std::string ICAO, std::string IATA, std::string city, std::string source, std::string name
-    //Airport myAirport(1, 300, 200, 600, 3, 4, 5, "svensk", "jihad", "ARN", "ARN", "Arlanda", "abc123", "jihadnews", "apa");
-    
-    //myAirport.print_airport();
-    
+    World w;
+    w.create_airport("airport.csv");
+    w.create_airplane("fleet.csv");
+    w.create_passenger("flight.csv");
+
     return 0;
 }
 
