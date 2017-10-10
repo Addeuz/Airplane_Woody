@@ -18,7 +18,7 @@
 #include <vector>
 #include "Passanger.h"
 
-class Flight{
+class Flight {
 private:
     int id;
 protected:
@@ -29,11 +29,10 @@ protected:
     int time;
 public:
     void calculate_time();
-    Flight(std::string plan_id, Passenger P, std::string dest, std::string departure): plan_id(plan_id), dest(dest), departure(departure){passenger.push_back (P);}
 
-    
+    Flight(std::string plan_id, Passenger P, std::string dest, std::string departure) : plan_id(plan_id), dest(dest), departure(departure) {
+        passenger.push_back(P);
+    }
 };
 
-
 #endif /* FLIGHTS_H */
-

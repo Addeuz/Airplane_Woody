@@ -13,6 +13,7 @@
 
 #ifndef AIRPORT_H
 #define AIRPORT_H
+
 #include <vector>
 #include <string>
 #include "Airplane.h"
@@ -25,9 +26,6 @@ protected:
     float altitude;
     double longitude;
     double latitude;
-    //    int airplane;
-    //    int arrival;
-    //    int departures;
     std::vector<Airplane> airplane;
     std::vector<Flight> arrival;
     std::vector<Flight> departures;
@@ -40,16 +38,22 @@ protected:
     std::string source;
     std::string name;
 public:
-    void set_ID();
-    Airport(int ID, float alti, double longi, double lati, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name);
-    //Airport(int ID, int alti, int longi, int lati, int airp, int arr, int dep, std::string coun, std::string timez, std::string type, std::string ICAO, std::string IATA, std::string city, std::string source, std::string name);
-    double get_longitud(Airport);
-    double get_latitud(Airport);
+
+    Airport(int ID, float alti, double longi, double lati, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name) : ID(ID), altitude(alti), longitude(longi), latitude(lati), country(coun), timezone(timez), type(typ), ICAO(in_ICAO), IATA(in_IATA), city(in_city), source(in_source), name(in_name) {
+    }
+    //void set_ID();
     Flight create_flight(std::string plan_id, std::vector<Passenger> passenger, std::string destination, std::string departure, int time);
     bool book_plane();
-    bool add_plane(Airplane plane){airplane.push_back(plane);}
-    void print_airport();
-    std::string get_ICAO(){return ICAO;}
+
+    void add_plane(Airplane plane) {
+        airplane.push_back(plane);
+    }
+
+    std::string get_ICAO() {
+        return ICAO;
+    }
+    double get_longitud(Airport);
+    double get_latitud(Airport);
 };
 
 #endif /* AIRPORT_H */

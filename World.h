@@ -13,6 +13,7 @@
 
 #ifndef WORLD_H
 #define WORLD_H
+
 #include "Airplane.h"
 #include "Passanger.h"
 #include "Airport.h"
@@ -28,11 +29,6 @@ public:
     void create_airplane(std::string file_name);
     void create_airport(std::string file_name);
     void create_passenger(std::string file_name);
-
-
 };
 
-
-
 #endif /* WORLD_H */
-

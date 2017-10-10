@@ -13,6 +13,7 @@
 
 #ifndef PASSANGER_H
 #define PASSANGER_H
+
 #include <string>
 
 class Passenger {
@@ -26,9 +27,6 @@ public:
 
     Passenger(std::string dest, std::string location, std::string req_time, int ID) : dest(dest), location(location), req_time(req_time), ID(ID) {
     }
-
-
 };
 
 #endif /* PASSANGER_H */
-

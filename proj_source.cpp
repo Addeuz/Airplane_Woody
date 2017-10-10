@@ -13,21 +13,21 @@
 
 using namespace std;
 
-Airport::Airport(int in_ID, float alti, double longi, double lati, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
-    //Airport::Airport(int in_ID, int alti, int longi, int lati, int airp, int arr, int dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
-    ID = in_ID;
-    altitude = alti;
-    longitude = longi;
-    latitude = lati;
-    country = coun;
-    timezone = timez;
-    type = typ;
-    ICAO = in_ICAO;
-    IATA = in_IATA;
-    city = in_city;
-    source = in_source;
-    name = in_name;
-}
+//Airport::Airport(int in_ID, float alti, double longi, double lati, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
+//    //Airport::Airport(int in_ID, int alti, int longi, int lati, int airp, int arr, int dep, string coun, string timez, string typ, string in_ICAO, string in_IATA, string in_city, string in_source, string in_name) {
+//    ID = in_ID;
+//    altitude = alti;
+//    longitude = longi;
+//    latitude = lati;
+//    country = coun;
+//    timezone = timez;
+//    type = typ;
+//    ICAO = in_ICAO;
+//    IATA = in_IATA;
+//    city = in_city;
+//    source = in_source;
+//    name = in_name;
+//}
 
 double Airport::get_longitud(Airport x) {
     return x.longitude;
@@ -112,7 +112,4 @@ Airplane::Airplane(string Aircraft) {
         max_speed = 833;
         max_height = 10;
     }
-
-
-
 }
