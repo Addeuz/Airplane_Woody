@@ -17,6 +17,7 @@
 #include "Airplane.h"
 #include "Passanger.h"
 #include "Airport.h"
+#include "Flights.h"
 #include <vector>
 #include <string>
 
@@ -25,10 +26,12 @@ protected:
     std::vector<Airplane> airplane;
     std::vector<Passenger> passenger;
     std::vector<Airport> airport;
+    std::vector<Flight> fligths;
 public:
-    void create_airplane(std::string file_name);
+    void create_airplane(std::string file_name1, std::string file_name2);
     void create_airport(std::string file_name);
     void create_passenger(std::string file_name);
+    double calculate_dist(double lat1,double lat2,double long1,double long2);
 };
 
 #endif /* WORLD_H */

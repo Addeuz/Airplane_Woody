@@ -52,8 +52,11 @@ public:
     std::string get_ICAO() {
         return ICAO;
     }
-    double get_longitud(Airport);
-    double get_latitud(Airport);
+    double get_longitude(){return longitude;}
+    double get_latitude(){return latitude;}
+    std::vector<Flight> get_departures(){return departures;}
+    std::vector<Flight> get_arrivals(){return arrival;}
+    
 };
 
 #endif /* AIRPORT_H */

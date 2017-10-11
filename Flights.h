@@ -29,7 +29,8 @@ protected:
     int time;
 public:
     void calculate_time();
-
+    std::string get_dest(){return dest;}
+    void add_passenger(Passenger p){passenger.push_back(p);}
     Flight(std::string plan_id, Passenger P, std::string dest, std::string departure) : plan_id(plan_id), dest(dest), departure(departure) {
         passenger.push_back(P);
     }

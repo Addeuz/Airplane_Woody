@@ -35,7 +35,7 @@ public:
     void set_avail_seats(int x) {
         avail_seats = x;
     }
-    Airplane(std::string Aircraft);
+    Airplane(std::string Aircraft, std::string file_name);
 
     std::string get_model() {
         return model;
