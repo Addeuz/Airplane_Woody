@@ -17,21 +17,44 @@
 #include <string>
 #include <vector>
 #include "Passanger.h"
+#include "Airplane.h"
 
 class Flight {
 private:
     int id;
 protected:
-    std::string plan_id; //Kanske använda sig av hela planet istället
+    Airplane airplane; //Kanske använda sig av hela planet istället
     std::vector<Passenger> passenger;
     std::string dest;
     std::string departure;
     int time;
+    std::string dep_time;
+    std::string arrival_time;
+    std::string date;
 public:
-    void calculate_time();
-    std::string get_dest(){return dest;}
-    void add_passenger(Passenger p){passenger.push_back(p);}
-    Flight(std::string plan_id, Passenger P, std::string dest, std::string departure) : plan_id(plan_id), dest(dest), departure(departure) {
+
+    void calculate_time(int speed, double dist) {
+        time = dist / speed;
+    }
+
+    std::string get_dest() {
+        return dest;
+    }
+
+    void set_id(int flight_id) {
+        id = flight_id;
+    }
+    void set_time(std::string reqtime);
+
+    bool add_passenger(Passenger p) {
+        if (passenger.size() < airplane.get_max_seat()) {
+            passenger.push_back(p);
+            return true;
+        }
+        return false;
+    }
+
+    Flight(Airplane airplane, Passenger P, std::string dest, std::string departure) : airplane(airplane), dest(dest), departure(departure) {
         passenger.push_back(P);
     }
 };

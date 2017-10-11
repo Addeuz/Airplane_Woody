@@ -42,7 +42,7 @@ public:
     Airport(int ID, float alti, double longi, double lati, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name) : ID(ID), altitude(alti), longitude(longi), latitude(lati), country(coun), timezone(timez), type(typ), ICAO(in_ICAO), IATA(in_IATA), city(in_city), source(in_source), name(in_name) {
     }
     //void set_ID();
-    Flight create_flight(std::string plan_id, std::vector<Passenger> passenger, std::string destination, std::string departure, int time);
+    void create_flight(Airplane airplane, Passenger passenger, Airport destination, Airport departure, double dist);
     bool book_plane();
 
     void add_plane(Airplane plane) {
@@ -54,8 +54,12 @@ public:
     }
     double get_longitude(){return longitude;}
     double get_latitude(){return latitude;}
+    std::string get_name(){return name;}
     std::vector<Flight> get_departures(){return departures;}
     std::vector<Flight> get_arrivals(){return arrival;}
+    void add_arrival(Flight flight){arrival.push_back(flight);}
+    void add_departure(Flight flight){departures.push_back(flight);}
+    int get_id(){return ID;}
     
 };
 

@@ -73,9 +73,10 @@ void World::create_airport(std::string file_name) {
 
 void World::create_passenger(std::string file_name) {
     vector<Airport>::iterator it1; //Location
-    vector<Flight>::iterator it2;   //Flights
-    vector<Airport>::iterator it3;  //Dest
+    vector<Flight>::iterator it2; //Flights
+    vector<Airport>::iterator it3; //Dest
     vector<Airplane>::iterator it4; //Airplane
+    Airplane *plane;
     ifstream file(file_name);
     string id, dest, location, reqtime;
     if (!file.is_open()) {
@@ -92,46 +93,75 @@ void World::create_passenger(std::string file_name) {
         for (it1 = airport.begin(); it1 < airport.end(); it1++) {
             for (it3 = airport.begin(); it3 < airport.end(); it3++) {
                 string dest_name = it3->get_ICAO().substr(1, it3->get_ICAO().size() - 2);
-                if (dest == dest_name){
+                if (dest == dest_name) {
                     break;
                 }
             }
-            
+
 
             string loc_name = it1->get_ICAO().substr(1, it1->get_ICAO().size() - 2);
 
             if (location == loc_name) {
                 bool no_flight = true;
-                for (it2 = it1->departures.begin(); it2 < it1->departures.end(); it2++) {
+                for (it2 = it1->get_departures.begin(); it2 < it1->get_departures.end(); it2++) {
                     string sub2 = it2->get_dest().substr(1, it2->get_dest().size() - 2);
                     if (dest == sub2) {
-                        it2->add_passenger(obj);
-                        no_flight = false;
+                        no_flight = it2->add_passenger(obj);
                     }
 
                 }
                 if (no_flight) {
+                    bool no_plane = true;
                     double d;
-                    d = calculate_dist(it1->get_latitude(), it3->get_latitude() ,it1->get_longitude(), it3->get_longitude());
-                    for (it4 = it1->airlane.begin(); it4 < it1->airplane.end(); it4++) {
-                        
+                    d = calculate_dist(it1->get_latitude(), it3->get_latitude(), it1->get_longitude(), it3->get_longitude());
+                    for (it4 = it1->airplane.begin(); it4 < it1->airplane.end(); it4++) {
+                        if (d < it4->get_range()) {
+                            no_plane = false;
+
+                            if (it4 == it1->airlane.begin()) {
+                                plane = it4;
+                            } else if (plane->get_range() > it4->get_range()) {
+                                plane = it4;
+                            }
+                        }
                     }
+                    if(no_plane){
+                    
                     }
+                    it1->create_flight(plane, obj, it1, it3, d);
                 }
             }
         }
+    }
 
 }
 
 double World::calculate_dist(double lat1, double lat2, double long1, double long2) {
-        double r,la1,la2,lo1,lo2,d;
-        r = 6371000;
-        la1 = lat1 * M_PI / 180;
-        la2 = lat2 * M_PI / 180;
-        lo1 = long1 * M_PI / 180;
-        lo2 = long2 * M_PI / 180;
-        d = 2 * r * sqrt((sin((la2 - la1) / 2)^2)+(cos(la1) * cos(la2)*(sin((lo2 - lo1) / 2)^2)));
-        return d;
-    }
+    double r, la1, la2, lo1, lo2, d;
+    r = 6371;
+    la1 = lat1 * M_PI / 180;
+    la2 = lat2 * M_PI / 180;
+    lo1 = long1 * M_PI / 180;
+    lo2 = long2 * M_PI / 180;
+    d = 2 * r * sqrt((sin((la2 - la1) / 2)^2)+(cos(la1) * cos(la2)*(sin((lo2 - lo1) / 2)^2)));
+    return d;
+}
 
+void Airport::create_flight(Airplane plane, Passenger passenger, Airport destination, Airport departure, double dist) {
+    int i= 0;
+    vector<Airplane>::iterator it;
+    Flight flight(plane, passenger, destination->get_name(), departure->get_name());
+    flight.set_id(passenger.get_id());
+    flight.calculate_time(plane.get_max_speed(), dist);
+    for(it = airplane.begin(); it < airplane.end(); it++){
+        if(it == plane){
+            airplane.erase(airplane.begin()+i);
+        }
+        i++;
+        }
+    flight.set_time(passenger.get_req_time());
+    add_departure(flight);
+    destination.add_arrival(flight);
+
+}
 

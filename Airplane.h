@@ -40,6 +40,9 @@ public:
     std::string get_model() {
         return model;
     }
+    int get_range(){return max_range;}
+    int get_max_seat(){return max_seats;}
+    int get_max_speed(){return max_speed;}
 };
 
 #endif /* AIRPLANE_H */

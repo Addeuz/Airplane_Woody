@@ -27,6 +27,8 @@ public:
 
     Passenger(std::string dest, std::string location, std::string req_time, int ID) : dest(dest), location(location), req_time(req_time), ID(ID) {
     }
+    int get_id(){return ID;}
+    std::string get_req_time(){return req_time;}
 };
 
 #endif /* PASSANGER_H */
