@@ -121,9 +121,6 @@ void World::create_passenger(std::string file_name) {
             }
         }
 
-        //World.airport.search(.name) Här ska fligth hittas och skapas osv....
-        //dest              i.getname
-    }
 }
 
 double World::calculate_dist(double lat1, double lat2, double long1, double long2) {
