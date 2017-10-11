@@ -76,9 +76,9 @@ void World::create_passenger(std::string file_name) {
     vector<Flight>::iterator it2; //Flights
     vector<Airport>::iterator it3; //Dest
     vector<Airplane>::iterator it4; //Airplane
-    Airplane *plane;
+    int plane;
     ifstream file(file_name);
-    string id, dest, location, reqtime;
+    string id, dest, location, reqtime, plane_id;
     if (!file.is_open()) {
         cout << "No open";
     }
@@ -103,7 +103,7 @@ void World::create_passenger(std::string file_name) {
 
             if (location == loc_name) {
                 bool no_flight = true;
-                for (it2 = it1->get_departures.begin(); it2 < it1->get_departures.end(); it2++) {
+                for (it2 = it1->get_departures().begin(); it2 < it1->get_departures().end(); it2++) {
                     string sub2 = it2->get_dest().substr(1, it2->get_dest().size() - 2);
                     if (dest == sub2) {
                         no_flight = it2->add_passenger(obj);
@@ -114,21 +114,23 @@ void World::create_passenger(std::string file_name) {
                     bool no_plane = true;
                     double d;
                     d = calculate_dist(it1->get_latitude(), it3->get_latitude(), it1->get_longitude(), it3->get_longitude());
-                    for (it4 = it1->airplane.begin(); it4 < it1->airplane.end(); it4++) {
+                    for (it4 = it1->get_airplanes().begin(); it4 < it1->get_airplanes().end(); it4++) {
                         if (d < it4->get_range()) {
                             no_plane = false;
 
-                            if (it4 == it1->airlane.begin()) {
-                                plane = it4;
-                            } else if (plane->get_range() > it4->get_range()) {
-                                plane = it4;
+                            if (it4 == it1->get_airplanes().begin()) {
+                                plane = it4->get_range();
+                                plane_id = it4->get_id();
+                            } else if (plane > it4->get_range()) {
+                                plane = it4->get_range();
+                                plane_id = it4->get_id();
                             }
                         }
                     }
                     if(no_plane){
                     
                     }
-                    it1->create_flight(plane, obj, it1, it3, d);
+                    it1->create_flight(it1->find_plane(plane_id), obj, get_airport(it1->get_id()),get_airport(it3->get_id()) , d);
                 }
             }
         }
@@ -139,22 +141,22 @@ void World::create_passenger(std::string file_name) {
 double World::calculate_dist(double lat1, double lat2, double long1, double long2) {
     double r, la1, la2, lo1, lo2, d;
     r = 6371;
-    la1 = lat1 * M_PI / 180;
-    la2 = lat2 * M_PI / 180;
+    la1 = lat1 * M_PI/180;
+    la2 = lat2 * M_PI/180;
     lo1 = long1 * M_PI / 180;
     lo2 = long2 * M_PI / 180;
-    d = 2 * r * sqrt((sin((la2 - la1) / 2)^2)+(cos(la1) * cos(la2)*(sin((lo2 - lo1) / 2)^2)));
+    d = 2 * r * sqrt((sin((la2-la1)/2)*sin((la2-la1)/2))+(cos(la1) * cos(la2)*(sin((lo2 - lo1) / 2)*sin((lo2 - lo1) / 2))));
     return d;
 }
 
 void Airport::create_flight(Airplane plane, Passenger passenger, Airport destination, Airport departure, double dist) {
     int i= 0;
     vector<Airplane>::iterator it;
-    Flight flight(plane, passenger, destination->get_name(), departure->get_name());
+    Flight flight(plane, passenger, destination.get_name(), departure.get_name());
     flight.set_id(passenger.get_id());
     flight.calculate_time(plane.get_max_speed(), dist);
     for(it = airplane.begin(); it < airplane.end(); it++){
-        if(it == plane){
+        if(it->get_id() == plane.get_id()){
             airplane.erase(airplane.begin()+i);
         }
         i++;
@@ -163,5 +165,29 @@ void Airport::create_flight(Airplane plane, Passenger passenger, Airport destina
     add_departure(flight);
     destination.add_arrival(flight);
 
+}
+
+Airplane Airport::find_plane(std::string plane_id){
+    int i=0;
+    for(vector<Airplane>::iterator it = airplane.begin(); it < airplane.end(); it++){
+        
+        if(it->get_id() == plane_id){
+            break;
+        }
+        i++;
+    
+    }
+    return airplane[i];
+}
+    
+Airport World::get_airport(int id){
+    int i = 0;
+    for(vector<Airport>::iterator it = airport.begin(); it < airport.end(); it++){
+        if(it->get_id() == id){
+            break;
+        }
+        i++;
+ }
+    return airport[i];
 }
 

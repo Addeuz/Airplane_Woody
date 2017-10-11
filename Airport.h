@@ -60,6 +60,8 @@ public:
     void add_arrival(Flight flight){arrival.push_back(flight);}
     void add_departure(Flight flight){departures.push_back(flight);}
     int get_id(){return ID;}
+    std::vector<Airplane> get_airplanes(){return airplane;}
+    Airplane find_plane(std::string plane_id);
     
 };
 
