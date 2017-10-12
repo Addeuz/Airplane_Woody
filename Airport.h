@@ -42,7 +42,7 @@ public:
     Airport(int ID, float alti, double longi, double lati, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name) : ID(ID), altitude(alti), longitude(longi), latitude(lati), country(coun), timezone(timez), type(typ), ICAO(in_ICAO), IATA(in_IATA), city(in_city), source(in_source), name(in_name) {
     }
     //void set_ID();
-    void create_flight(Airplane airplane, Passenger passenger, Airport destination, Airport departure, double dist);
+    Flight create_flight(Airplane airplane, Passenger passenger, Airport destination, Airport departure, double dist);
     bool book_plane();
 
     void add_plane(Airplane plane) {

@@ -44,7 +44,7 @@ public:
     void set_id(int flight_id) {
         id = flight_id;
     }
-    void set_time(std::string reqtime);
+    void set_time(std::string reqtime){}
 
     bool add_passenger(Passenger p) {
         if (passenger.size() < airplane.get_max_seat()) {

@@ -130,7 +130,7 @@ void World::create_passenger(std::string file_name) {
                     if(no_plane){
                     
                     }
-                    it1->create_flight(it1->find_plane(plane_id), obj, get_airport(it1->get_id()),get_airport(it3->get_id()) , d);
+                    fligths.push_back(it1->create_flight(it1->find_plane(plane_id), obj, get_airport(it1->get_id()),get_airport(it3->get_id()) , d));
                 }
             }
         }
@@ -149,7 +149,7 @@ double World::calculate_dist(double lat1, double lat2, double long1, double long
     return d;
 }
 
-void Airport::create_flight(Airplane plane, Passenger passenger, Airport destination, Airport departure, double dist) {
+Flight Airport::create_flight(Airplane plane, Passenger passenger, Airport destination, Airport departure, double dist) {
     int i= 0;
     vector<Airplane>::iterator it;
     Flight flight(plane, passenger, destination.get_name(), departure.get_name());
@@ -164,7 +164,7 @@ void Airport::create_flight(Airplane plane, Passenger passenger, Airport destina
     flight.set_time(passenger.get_req_time());
     add_departure(flight);
     destination.add_arrival(flight);
-
+    return flight;
 }
 
 Airplane Airport::find_plane(std::string plane_id){
