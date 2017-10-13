@@ -31,6 +31,7 @@ public:
         ID = id;
     }
     std::string get_id(){return ID;}
+    
     void set_model();
 
     void set_avail_seats(int x) {

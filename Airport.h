@@ -37,9 +37,11 @@ protected:
     std::string city;
     std::string source;
     std::string name;
+    bool no_plane;
 public:
 
     Airport(int ID, float alti, double longi, double lati, std::string coun, std::string timez, std::string typ, std::string in_ICAO, std::string in_IATA, std::string in_city, std::string in_source, std::string in_name) : ID(ID), altitude(alti), longitude(longi), latitude(lati), country(coun), timezone(timez), type(typ), ICAO(in_ICAO), IATA(in_IATA), city(in_city), source(in_source), name(in_name) {
+        no_plane = true;
     }
     //void set_ID();
     Flight create_flight(Airplane airplane, Passenger passenger, Airport destination, Airport departure, double dist);
@@ -47,6 +49,7 @@ public:
 
     void add_plane(Airplane plane) {
         airplane.push_back(plane);
+        no_plane = false;
     }
 
     std::string get_ICAO() {
@@ -62,6 +65,8 @@ public:
     int get_id(){return ID;}
     std::vector<Airplane> get_airplanes(){return airplane;}
     Airplane find_plane(std::string plane_id);
+    Airplane best_plane(double d);
+    bool get_plane_status(){return no_plane;}
     
 };
 

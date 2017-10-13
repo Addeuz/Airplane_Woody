@@ -32,7 +32,8 @@ public:
     void create_airport(std::string file_name);
     void create_passenger(std::string file_name);
     double calculate_dist(double lat1,double lat2,double long1,double long2);
-    Airport get_airport(int id);
+    Airport get_airport(std::string ICAO);
+    
 };
 
 #endif /* WORLD_H */
