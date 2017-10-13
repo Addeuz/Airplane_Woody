@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 #include <math.h>
+#include "Clock.h"
+#include <iomanip>
 
 using namespace std;
 
@@ -75,44 +77,87 @@ void World::create_passenger(std::string file_name) {
     vector<Flight>::iterator it2; //Flights
     vector<Airport>::iterator it3; //Dest
     vector<Airplane>::iterator it4; //Airplane
-    int plane;
     ifstream file(file_name);
-    string id, dest, location, reqtime, plane_id;
+    string id, dest, location, reqtime;
+    double d;
     if (!file.is_open()) {
         cout << "No open";
     }
     getline(file, id, '\n');
     while (getline(file, id, ','),
-        getline(file, dest, ','),
-        getline(file, reqtime, ','),
-        getline(file, location, '\n')) {
-
+            getline(file, dest, ','),
+            getline(file, reqtime, ','),
+            getline(file, location, '\n')) {
         Passenger obj = Passenger(dest, location, reqtime, stoi(id));
         passenger.push_back(obj);
         try {
-            bool no_flight = true;
-            it2 = get_airport(location).get_departures().end();
-            while (it2 != get_airport(location).get_departures().end()) {
-                string sub2 = it2->get_dest().substr(1, it2->get_dest().size() - 2);
-                if (dest == sub2) {
+            int i = 0, j = 0;
 
-                    no_flight = it2->add_passenger(obj);
+            for (it1 = airport.begin(); it1 != airport.end(); it1++) {
+
+
+                string loc_name = it1->get_ICAO().substr(1, it1->get_ICAO().size() - 2);
+                if (location == loc_name) {
+                    break;
                 }
-                it2++;
+                i++;
             }
-            if (no_flight) {
-                double d;
-                d = calculate_dist(get_airport(location).get_latitude(), get_airport(dest).get_latitude(), get_airport(location).get_longitude(), get_airport(dest).get_longitude());
+            for (it3 = airport.begin(); it3 != airport.end(); it3++) {
 
-                if (get_airport(location).get_plane_status()) {
 
-                    
-                    
+                string loc_name = it3->get_ICAO().substr(1, it3->get_ICAO().size() - 2);
+                if (dest == loc_name) {
+                    break;
+                }
+                j++;
+            }
+            d = calculate_dist(get_airport(location).get_latitude(), get_airport(dest).get_latitude(), get_airport(location).get_longitude(), get_airport(dest).get_longitude());
+
+            if (get_airport(location).add(obj, dest) == false) {
+                cout << airport[i].get_departure_status() << endl;
+                if (airport[i].get_departure_status()) {
+
+
+                    if (get_airport(location).get_plane_status()) {
+                        if (get_airport(location).get_arrival_status()) {
+                            //BOOK PLANE
+                            cout << "No plane" << endl;
+                        } else {
+
+                            fligths.push_back(get_airport(location).create_flight(get_airport(location).find_arrival(obj.get_req_date(), obj.get_req_time_h(), d), obj, get_airport(dest), get_airport(location), d));
+
+                            airport[i].add_departure(get_flight(stoi(id)));
+                            airport[j].add_arrival(get_flight(stoi(id)));
+                            airport[i].remove_plane(get_airport(location).find_arrival(obj.get_req_date(), obj.get_req_time_h(), d));
+                        }
+
+                    } else {
+                        fligths.push_back(get_airport(location).create_flight(get_airport(location).best_plane(d), obj, get_airport(dest), get_airport(location), d));
+                        airport[i].add_departure(get_flight(stoi(id)));
+                        airport[j].add_arrival(get_flight(stoi(id)));
+                        airport[i].remove_plane(get_airport(location).best_plane(d));
+                    }
                 } else {
-                    fligths.push_back(get_airport(location).create_flight(get_airport(location).best_plane(d), obj, get_airport(dest), get_airport(location), d));
+                    //try{ 
+                    //get_airport(location).best_plane(d);
+                    cout << get_airport(location).get_name() << endl << endl;
+                    get_flight(airport[i].get_spec_flight(dest)).add_passenger(obj);
+                    //}
+                    //catch(const char* msg){
+                    //    cout << msg << endl;
+                    //}
+                    //                    
+                    //                    airport[i].add_departure(get_flight(stoi(id)));
+                    //                    airport[j].add_arrival(get_flight(stoi(id)));
+                    //                    airport[i].remove_plane(get_airport(location).best_plane(d));
+
+
+
 
                 }
+
             }
+
         } catch (const char* msg) {
             cerr << msg << endl;
         }
@@ -136,21 +181,10 @@ double World::calculate_dist(double lat1, double lat2, double long1, double long
 }
 
 Flight Airport::create_flight(Airplane plane, Passenger passenger, Airport destination, Airport departure, double dist) {
-    int i = 0;
     vector<Airplane>::iterator it;
     Flight flight(plane, passenger, destination.get_name(), departure.get_name());
     flight.set_id(passenger.get_id());
-    flight.calculate_time(plane.get_max_speed(), dist);
-    for (it = airplane.begin(); it < airplane.end(); it++) {
-        if (it->get_id() == plane.get_id()) {
-            airplane.erase(airplane.begin() + i);
-        }
-        i++;
-    }
-    flight.set_time(passenger.get_req_date(), passenger.get_req_time_h(), passenger.get_req_time_m(), dist, plane->get_max_speed());
-    add_departure(flight);
-    destination.add_arrival(flight);
-
+    flight.set_time(passenger.get_req_date(), passenger.get_req_time_h(), passenger.get_req_time_m(), dist, plane.get_max_speed());
     return flight;
 }
 
@@ -183,12 +217,30 @@ Airport World::get_airport(std::string ICAO) {
         throw "There is no airport with that name";
 
     }
-
     return airport[i];
 }
 
+Flight World::get_flight(int id) {
+    int i = 0;
+    bool exist = false;
+    for (vector<Flight>::iterator it = fligths.begin(); it < fligths.end(); it++) {
+        if (it->get_id() == id) {
+            exist = true;
+            break;
+        }
+        i++;
+    }
+    if (exist == false) {
+
+        throw "There is no airport with that name";
+
+    }
+
+    return fligths[i];
+}
+
 Airplane Airport::best_plane(double d) {
-    int range,i;
+    int range, i;
     string plane_id;
     for (vector<Airplane>::iterator it = airplane.begin(); it != airplane.end(); it++) {
         if (d < it->get_range()) {
@@ -203,62 +255,104 @@ Airplane Airport::best_plane(double d) {
             }
         }
     }
+    if (plane_id == "") {
+        throw "Inget Plan Passar";
+    }
     return find_plane(plane_id);
 
 
 }
 
+int Clock::geth() {
+    return h;
+}
 
-//for (it1 = airport.begin(); it1 != airport.end(); it1++) {
-//            it3 = airport.begin();
-//
-//            //for (it3 = airport.begin(); it3 != airport.end()-1; it3++) 
-//            while (it3 != airport.end()) {
-//                string dest_name = it3->get_ICAO().substr(1, it3->get_ICAO().size() - 2);
-//                if (dest == dest_name) {
-//                    cout << "FACK";
-//                    break;
-//                }
-//                it3++;
-//            }
-//
-//
-//            string loc_name = it1->get_ICAO().substr(1, it1->get_ICAO().size() - 2);
-//            //cout << loc_name << "  " << location << endl;
-//            if (location == loc_name) {
-//                bool no_flight = true;
-//                //for (it2 = it1->get_departures().begin(); it2 != it1->get_departures().end(); it2++) 
-//                it2 = it1->get_departures().begin();
-//                while(it2 != it1->get_departures().end()){
-//                    string sub2 = it2->get_dest().substr(1, it2->get_dest().size() - 2);
-//                    if (dest == sub2) {
-//                        no_flight = it2->add_passenger(obj);
-//                    }
-//                    it2++;
-//                }
-//                cout << "HEJ";
-//                
-//                if (no_flight) {
-//                    bool no_plane = true;
-//                    double d;
-//                    d = calculate_dist(it1->get_latitude(), it3->get_latitude(), it1->get_longitude(), it3->get_longitude());
-//                    for (it4 = it1->get_airplanes().begin(); it4 != it1->get_airplanes().end(); it4++) {
-//                        if (d < it4->get_range()) {
-//                            no_plane = false;
-//
-//                            if (it4 == it1->get_airplanes().begin()) {
-//                                plane = it4->get_range();
-//                                plane_id = it4->get_id();
-//                            } else if (plane > it4->get_range()) {
-//                                plane = it4->get_range();
-//                                plane_id = it4->get_id();
-//                            }
-//                        }
-//                    }
-//                    if (no_plane) {
-//
-//                    }
-//                    fligths.push_back(it1->create_flight(it1->find_plane(plane_id), obj, get_airport(it1->get_id()), get_airport(it3->get_id()), d));
-//                }
-//            }
-//        }
+int Clock::getm() {
+    return m;
+}
+
+void Clock::set(int hh, int mm) {
+    h = hh;
+    m = mm;
+}
+
+void Clock::tick() {
+    m = (m + 1) % 60;
+    if (m == 0)
+        h = (h + 1) % 24;
+}
+
+bool Airport::add(Passenger p, string dest) {
+    bool add = false;
+    int i = 0;
+    for (vector<Flight>::iterator it = get_departures().begin(); it != get_departures().end(); it++) {
+        if (it->get_dest().size() != 4) {
+            throw "Fel dest";
+        }
+        string sub2 = it->get_dest().substr(1, it->get_dest().size() - 2);
+        cout << sub2;
+        if (dest == sub2) {
+
+            add = get_departures()[i].add_passenger(p);
+            break;
+        }
+        i++;
+
+
+    }
+    return add;
+}
+
+int Airport::get_spec_flight(string dest) {
+    int id;
+    for (vector<Flight>::iterator it = get_departures().begin(); it != get_departures().end(); it++) {
+        if (it->get_dest().size() != 4) {
+            throw "Fel dest";
+        }
+        string sub2 = it->get_dest().substr(1, it->get_dest().size() - 2);
+        cout << sub2;
+        if (dest == sub2) {
+            id = it->get_id();
+            break;
+        }
+
+    }
+    return id;
+}
+
+Airplane Airport::find_arrival(std::string date, int h, int range) {
+    int i = 0;
+    for (vector<Flight>::iterator it = arrival.begin(); it != arrival.end(); it++) {
+        if (h > it->get_arrival_time()) {
+            if (it->get_range() > range) {
+                break;
+            }
+            i++;
+        }
+    }
+    return arrival[i].get_airplane();
+}
+
+void Airport::remove_plane(Airplane plane) {
+    vector<Airplane>::iterator it;
+    int i = 0;
+    for (it = airplane.begin(); it < airplane.end(); it++) {
+        if (it->get_id() == plane.get_id()) {
+            airplane.erase(airplane.begin() + i);
+            cout << "ERASEEEE";
+        }
+        i++;
+    }
+}
+
+void World::print_csv(string file_name){
+   // file_name = file_name+".csv"
+    //ofstream file;
+    //file.open(file_name);
+    //for (vector<Flight>::iterator it = fligths.begin(); it < fligths.end(); it++) {
+        
+
+
+   //     }
+
+    }

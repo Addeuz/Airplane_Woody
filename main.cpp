@@ -27,12 +27,15 @@ using namespace std;
 /*
  * 
  */
-int main(int argc, char** argv) {
-
+int main(int argc, char** argv) { 
     World w;
+    string req;
+    cout << "Skriv filens namn:"<< endl;
+    cin >> req;
+    req = req+".csv";
     w.create_airport("airport.csv");
     w.create_airplane("fleet.csv", "craftinfo.csv");
-    w.create_passenger("flight.csv");
+    w.create_passenger(req);
     
     
     return 0;

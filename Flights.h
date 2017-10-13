@@ -18,6 +18,7 @@
 #include <vector>
 #include "Passanger.h"
 #include "Airplane.h"
+#include "Clock.h"
 
 class Flight {
 private:
@@ -33,21 +34,53 @@ protected:
     std::string date;
 public:
 
-    void calculate_time(int speed, double dist) {
-        time = dist / speed;
-    }
+//    void calculate_time(int speed, double dist) {
+//        time = dist / speed;
+//    }
+    int get_id(){return id;}
+    std::string get_dep_time(){return dep_time;}
+    std::string get_arr_time(){return arrival_time;}
+    std::string get_date(){return date;}
 
     std::string get_dest() {
         return dest;
     }
 
+    int get_range() {
+        return airplane.get_range();
+    }
+
     void set_id(int flight_id) {
         id = flight_id;
     }
-    void set_time(std::string date, int h, int m, double dist, int speed){
-        dep_time = std::to_string(h) +":"+ std::to_string(m);
-        
-    
+
+    void set_time(std::string date, int h, int m, double dist, int speed) {
+        std::string hour = std::to_string(h), min = std::to_string(m);
+        if (h < 10) {
+            hour = "0" + std::to_string(h);
+        }
+        if (m < 10) {
+            min = "0" + std::to_string(m);
+        }
+        dep_time = hour + ":" + min;
+        Clock c;
+        c.set(h, m);
+        for (int i = 0; i < (dist / speed + 1)*60; i++) {
+            c.tick();
+        }
+        hour = std::to_string(c.geth());
+        min = std::to_string(c.getm());
+        h = c.geth();
+        m = c.getm();
+        if (h < 10) {
+            hour = "0" + hour;
+        }
+        if (m < 10) {
+            min = "0" + min;
+        }
+        arrival_time = hour + ":" + min;
+
+
     }
 
     bool add_passenger(Passenger p) {
@@ -61,6 +94,16 @@ public:
     Flight(Airplane airplane, Passenger P, std::string dest, std::string departure) : airplane(airplane), dest(dest), departure(departure) {
         passenger.push_back(P);
     }
+
+    int get_arrival_time() {
+        return std::stoi(arrival_time.substr(0, 2));
+    }
+
+    Airplane get_airplane() {
+        return airplane;
+    }
+    
+
 };
 
 #endif /* FLIGHTS_H */

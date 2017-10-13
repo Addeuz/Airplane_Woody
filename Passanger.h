@@ -36,8 +36,8 @@ public:
     std::string get_req_date(){return req_date;}
     void set_time(){
         req_date= req_time.substr(0,10);
-        req_time_h= req_time.substr(10,2);
-        req_time_m= req_time.substr(13,2);
+        req_time_h= std::stoi(req_time.substr(11,2)) + std::stoi(req_time.substr(17,2));
+        req_time_m= std::stoi(req_time.substr(14,2));
     }
 };
 
