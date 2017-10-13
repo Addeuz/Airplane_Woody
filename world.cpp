@@ -177,6 +177,7 @@ Airport World::get_airport(std::string ICAO) {
         i++;
     }
     if (exist == false) {
+        cout << ICAO << " ";
         throw "There is no airport with that name";
 
     }
