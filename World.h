@@ -35,6 +35,7 @@ public:
     Airport get_airport(std::string ICAO);
     Flight get_flight(int id);
     void print_csv(std::string file_name);
+    int get_flight_place(int id);
     
 };
 

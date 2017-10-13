@@ -25,6 +25,8 @@ private:
     int id;
 protected:
     Airplane airplane;
+    std::string departure_ICAO;
+    std::string arrival_ICAO;
     std::vector<Passenger> passenger;
     std::string dest;
     std::string departure;
@@ -34,14 +36,12 @@ protected:
     std::string date;
 public:
 
-//    void calculate_time(int speed, double dist) {
-//        time = dist / speed;
-//    }
     int get_id(){return id;}
     std::string get_dep_time(){return dep_time;}
     std::string get_arr_time(){return arrival_time;}
     std::string get_date(){return date;}
-
+    std::string get_departure_ICAO(){return departure_ICAO;}
+    std::string get_destination_ICAO(){return arrival_ICAO;}
     std::string get_dest() {
         return dest;
     }
@@ -91,7 +91,7 @@ public:
         return false;
     }
 
-    Flight(Airplane airplane, Passenger P, std::string dest, std::string departure) : airplane(airplane), dest(dest), departure(departure) {
+    Flight(Airplane airplane, Passenger P, std::string dest, std::string departure, std::string departure_ICAO, std::string arrival_ICAO) : airplane(airplane), dest(dest), departure(departure),departure_ICAO(departure_ICAO), arrival_ICAO(arrival_ICAO) {
         passenger.push_back(P);
     }
 
