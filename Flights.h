@@ -23,7 +23,7 @@ class Flight {
 private:
     int id;
 protected:
-    Airplane airplane; //Kanske använda sig av hela planet istället
+    Airplane airplane;
     std::vector<Passenger> passenger;
     std::string dest;
     std::string departure;
@@ -44,7 +44,11 @@ public:
     void set_id(int flight_id) {
         id = flight_id;
     }
-    void set_time(std::string reqtime){}
+    void set_time(std::string date, int h, int m, double dist, int speed){
+        dep_time = std::to_string(h) +":"+ std::to_string(m);
+        
+    
+    }
 
     bool add_passenger(Passenger p) {
         if (passenger.size() < airplane.get_max_seat()) {

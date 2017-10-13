@@ -106,6 +106,8 @@ void World::create_passenger(std::string file_name) {
 
                 if (get_airport(location).get_plane_status()) {
 
+                    
+                    
                 } else {
                     fligths.push_back(get_airport(location).create_flight(get_airport(location).best_plane(d), obj, get_airport(dest), get_airport(location), d));
 
@@ -145,7 +147,7 @@ Flight Airport::create_flight(Airplane plane, Passenger passenger, Airport desti
         }
         i++;
     }
-    flight.set_time(passenger.get_req_time());
+    flight.set_time(passenger.get_req_date(), passenger.get_req_time_h(), passenger.get_req_time_m(), dist, plane->get_max_speed());
     add_departure(flight);
     destination.add_arrival(flight);
 
