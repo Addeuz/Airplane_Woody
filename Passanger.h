@@ -13,7 +13,6 @@
 
 #ifndef PASSANGER_H
 #define PASSANGER_H
-
 #include <string>
 
 class Passenger {
@@ -23,12 +22,22 @@ protected:
     std::string dest;
     std::string location;
     std::string req_time;
+    int req_time_h;
+    std::string req_date;
+    int req_time_m;
 public:
 
     Passenger(std::string dest, std::string location, std::string req_time, int ID) : dest(dest), location(location), req_time(req_time), ID(ID) {
     }
     int get_id(){return ID;}
-    std::string get_req_time(){return req_time;}
+    int get_req_time_h(){return req_time_h;}
+    int get_req_time_m(){return req_time_m;}
+    std::string get_req_date(){return req_date;}
+    void set_time(Passenger P){
+        req_date=P.req_time.substr(0,10);
+        req_time_h=P.req_time.substr(10,2);
+        req_time_m=P.req_time.substr(13,2);
+    }
 };
 
 #endif /* PASSANGER_H */
