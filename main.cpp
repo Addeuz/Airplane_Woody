@@ -29,15 +29,17 @@ using namespace std;
  */
 int main(int argc, char** argv) { 
     World w;
-    string req;
+    string req, output_name;
     cout << "Skriv filens namn:"<< endl;
     cin >> req;
     req = req+".csv";
+    cout << "Skriv output filens namn:"<< endl;
+    cin >> output_name;
+    output_name = output_name+".csv";
     w.create_airport("airport.csv");
     w.create_airplane("fleet.csv", "craftinfo.csv");
     w.create_passenger(req);
-    
-    
+    w.print_csv(output_name, req);
     return 0;
     
 }

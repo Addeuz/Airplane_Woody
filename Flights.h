@@ -30,7 +30,6 @@ protected:
     std::vector<Passenger> passenger;
     std::string dest;
     std::string departure;
-    int time;
     std::string dep_time;
     std::string arrival_time;
     std::string date;
@@ -42,9 +41,9 @@ public:
     std::string get_date(){return date;}
     std::string get_departure_ICAO(){return departure_ICAO;}
     std::string get_destination_ICAO(){return arrival_ICAO;}
-    std::string get_dest() {
-        return dest;
-    }
+    std::string get_dest() {return dest;}
+    std::string get_dep() {return departure;}
+    std::vector<Passenger> get_passenger(){return passenger;}
 
     int get_range() {
         return airplane.get_range();
@@ -86,9 +85,9 @@ public:
     bool add_passenger(Passenger p) {
         if (passenger.size() < airplane.get_max_seat()) {
             passenger.push_back(p);
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     Flight(Airplane airplane, Passenger P, std::string dest, std::string departure, std::string departure_ICAO, std::string arrival_ICAO) : airplane(airplane), dest(dest), departure(departure),departure_ICAO(departure_ICAO), arrival_ICAO(arrival_ICAO) {

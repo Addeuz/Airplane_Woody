@@ -32,9 +32,9 @@ public:
     void create_airport(std::string file_name);
     void create_passenger(std::string file_name);
     double calculate_dist(double lat1,double lat2,double long1,double long2);
-    Airport get_airport(std::string ICAO);
+    int get_airport(std::string ICAO);
     Flight get_flight(int id);
-    void print_csv(std::string file_name);
+    void print_csv(std::string file_name, std::string source);
     int get_flight_place(int id);
     
 };
