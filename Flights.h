@@ -21,9 +21,8 @@
 #include "Clock.h"
 
 class Flight {
-private:
-    int id;
 protected:
+    int id;
     Airplane airplane;
     std::string departure_ICAO;
     std::string arrival_ICAO;
@@ -64,7 +63,7 @@ public:
         dep_time = hour + ":" + min;
         Clock c;
         c.set(h, m);
-        for (int i = 0; i < (dist / speed + 1)*60; i++) {
+        for (int i = 0; i <+ (dist / speed + 1)*60; i++) {
             c.tick();
         }
         hour = std::to_string(c.geth());

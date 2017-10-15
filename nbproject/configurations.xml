@@ -19,7 +19,6 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>main.cpp</itemPath>
-      <itemPath>proj_source.cpp</itemPath>
       <itemPath>world.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -159,18 +158,22 @@
   <confs>
     <conf name="Debug" type="1">
       <toolsSet>
-        <compilerSet>GNU|GNU</compilerSet>
+        <compilerSet>Cygwin|Cygwin</compilerSet>
         <dependencyChecking>true</dependencyChecking>
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>11</standard>
+          <standard>8</standard>
         </ccTool>
         <linkerTool>
           <linkerDynSerch>
             <pElem>.</pElem>
           </linkerDynSerch>
+          <commandlineTool>g++</commandlineTool>
+          <linkerLibItems>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
+          </linkerLibItems>
         </linkerTool>
       </compileType>
       <item path="Airplane.h" ex="false" tool="3" flavor2="0">
@@ -186,8 +189,6 @@
       <item path="World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="proj_source.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="world.cpp" ex="false" tool="1" flavor2="0">
       </item>
@@ -230,8 +231,6 @@
       <item path="World.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
-      </item>
-      <item path="proj_source.cpp" ex="false" tool="1" flavor2="0">
       </item>
       <item path="world.cpp" ex="false" tool="1" flavor2="0">
       </item>

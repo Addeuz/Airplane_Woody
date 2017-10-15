@@ -17,7 +17,7 @@
 
 class Clock {
 private:
-	int h, m, s;
+	int h, m;
 public:
 	int geth();
 	int getm();

@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 #include "World.h"
 #include "Airplane.h"
 #include "Airport.h"
@@ -12,12 +13,43 @@
 #include <fstream>
 #include <string>
 #include <vector>
+#define _USE_MATH_DEFINES
 #include <math.h>
 #include "Clock.h"
 #include <iomanip>
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 
 
 using namespace std;
+
+
+
+Airplane::Airplane(string Aircraft, string file_name) {
+    ifstream file(file_name);
+    string name, IS, passengers, range, speed, height;
+    if (!file.is_open()) {
+        cout << "No open";
+    }
+    getline(file, name, '\n');
+    while (getline(file, name)) {
+        getline(file, name, ',');
+        if (Aircraft == name) {
+            model = name;
+            getline(file, IS, ',');
+            getline(file, passengers, ',');
+            max_seats = stoi(passengers);
+            getline(file, range, ',');
+            max_range = stoi(range);
+            getline(file, speed, ',');
+            max_speed = stoi(speed);
+            getline(file, height, '\n');
+            max_height = stoi(height);
+        }
+    }
+}
 
 void World::create_airplane(string file_name1, string file_name2) {
     vector<Airport>::iterator it;

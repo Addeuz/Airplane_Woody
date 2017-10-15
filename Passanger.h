@@ -16,9 +16,8 @@
 #include <string>
 
 class Passenger {
-private:
-    int ID;
 protected:
+    int ID;
     std::string dest;
     std::string location;
     std::string req_time;

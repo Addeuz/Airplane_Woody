@@ -17,9 +17,8 @@
 #include <string>
 
 class Airplane {
-private:
-    std::string ID;
 protected:
+    std::string ID;
     std::string model;
     int avail_seats;
     int max_seats;
